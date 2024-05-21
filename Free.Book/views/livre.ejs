@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('head') %>
+
+    <body>
+        <%- include('navbar') %>
+
+            <!-- Header Start -->
+            <header class="container-fluid page-header py-5 mb-3 wow fadeIn" data-wow-delay="0.1s">
+                <div class="container text-center py-5">
+                    <h1 class="display-2 text-white mb-4 animated slideInDown">Livres</h1>
+                    <nav aria-label="breadcrumb animated slideInDown">
+                        <ol class="breadcrumb justify-content-center mb-0">
+                            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
+                            <li class="breadcrumb-item text-primary" aria-current="page">Livres</li>
+                        </ol>
+                    </nav>
+                </div>
+            </header>
+            <!-- Header End -->
+
+            <!-- auteurs Start -->
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                        <p class="fs-5 fw-medium text-primary">Nos livres</p>
+                        <h1 class="display-5 mb-5">Notre liste de livre</h1>
+                    </div>
+                    <div class="row " id="echanges">
+                    </div>
+                </div>
+            </div>
+            <!-- auteurs End -->
+
+            <%- include('footer') %>
+
+                <script>
+                    // Fonction pour récupérer les livres depuis l'API
+                    async function fetchBooks() {
+                        try {
+                            const response = await fetch('/api/books');
+                            const data = await response.json();
+                            return data;
+                        } catch (error) {
+                            console.error('Erreur lors de la récupération des livres:', error);
+                            return [];
+                        }
+                    }
+
+                    // Fonction pour générer un bloc de projet à partir des données du livre
+                    function generateProjectBlock(book) {
+                        var projectBlock = document.createElement('div');
+                        projectBlock.className = "col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2";
+
+                        projectBlock.innerHTML = `
+            <div class="project-item mb-5 wow fadeInUp">
+                <div class="position-relative">
+                    <img class="img-fluid" src="https://img.freepik.com/photos-gratuite/couverture-livre-blanc-dans-obscurite_125540-753.jpg"
+ alt="${book.titre}">
+                    <div class="project-overlay">
+                        <a class="btn btn-lg-square btn-light rounded-circle m-1" href="${book.coverImageUrl}" data-lightbox="project"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-light rounded-circle m-1" href="#"><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <a class="d-block h5" href="">${book.titre}</a>
+                    <span>Auteur : ${book.auteur}</span><br>
+                    <span>Editeur : ${book.editeur}</span><br>
+                    <span>Proposé par : ${book.propose_par}</span><br>
+                    <span>${book.description}</span>
+                </div>
+            </div>
+        `;
+
+                        return projectBlock;
+                    }
+
+                    // Fonction principale pour afficher les livres
+                    async function displayBooks() {
+                        var parentElement = document.querySelector('#echanges');
+                        var books = await fetchBooks();
+
+                        books.forEach((book, index) => {
+                            var projectBlock = generateProjectBlock(book);
+                            parentElement.appendChild(projectBlock);
+                        });
+                    }
+
+                    // Appel de la fonction pour afficher les livres au chargement de la page
+                    displayBooks();
+                </script>
+
+                <!-- <script>
+
+                    function generateProjectBlock(index, url) {
+                        var title = "Titre du livre " + (index + 1);
+                        var author = "Auteur " + (index + 1);
+                        var publisher = "Editeur " + (index + 1);
+                        var proposer = "Utilisateur " + (index + 1);
+                        var description = "Description livre " + (index + 1);
+
+                        var projectBlock = document.createElement('div');
+                        projectBlock.className = "col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2";
+
+                        projectBlock.innerHTML = `
+        <div class="project-item mb-5 wow fadeInUp">
+            <div class="position-relative">
+                <img class="img-fluid" src="${url}" alt="">
+                <div class="project-overlay">
+                    <a class="btn btn-lg-square btn-light rounded-circle m-1" href="${url}" data-lightbox="project"><i class="fa fa-eye"></i></a>
+                    <a class="btn btn-lg-square btn-light rounded-circle m-1" href="#"><i class="fa fa-link"></i></a>
+                </div>
+            </div>
+            <div class="p-4">
+                <a class="d-block h5" href="">${title}</a>
+                <span>Auteur : ${author}</span><br>
+                <span>Editeur : ${publisher}</span><br>
+                <span>Proposé par : ${proposer}</span><br>
+                <span>${description}</span>
+            </div>
+        </div>
+    `;
+
+                        return projectBlock;
+                    }
+
+                    let url = "https://img.freepik.com/photos-gratuite/couverture-livre-blanc-dans-obscurite_125540-753.jpg"
+
+                    var parentElement = document.querySelector('#echanges');
+
+                    for (var i = 0; i < 22; i++) {
+                        var projectBlock = generateProjectBlock(i, url);
+                        parentElement.appendChild(projectBlock);
+                    }
+                </script> -->
+
+    </body>
+
+</html>

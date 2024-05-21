@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('head') %>
+
+    <body>
+        <%- include('navbar') %>
+
+            <!-- Header Start -->
+            <header class="container-fluid page-header py-5 mb-3 wow fadeIn" data-wow-delay="0.1s">
+                <div class="container text-center py-5">
+                    <h1 class="display-2 text-white mb-4 animated slideInDown">Add a Book</h1>
+                </div>
+            </header>
+            <!-- Header End -->
+
+            <!-- form Start -->
+            <div class="container-xxl pt-5">
+                <div class="container wow fadeIn">
+                    <h1 class="mb-4">Ajout d'un livre usagé</h1>
+                    <!-- <form id="livreForm"> -->
+                    <form action="/form" method="post">
+                        <div class="mb-3">
+                            <label for="titre" class="form-label">Titre du livre</label>
+                            <input type="text" class="form-control" id="titre" name="titre"
+                                placeholder="Entrez le titre du livre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="auteur" class="form-label">Auteur</label>
+                            <input type="text" class="form-control" id="auteur" name="auteur"
+                                placeholder="Entrez l'auteur du livre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editeur" class="form-label">Éditeur</label>
+                            <input type="text" class="form-control" id="editeur" name="editeur"
+                                placeholder="Entrez l'éditeur du livre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="propose_par" class="form-label">Proposé par</label>
+                            <input type="text" class="form-control" id="propose_par" name="propose_par"
+                                placeholder="Entrez le nom de la personne qui propose le livre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description du livre</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                placeholder="Entrez une description du livre" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="illustration" class="form-label">Illustration</label>
+                            <input type="file" class="form-control" id="illustration" accept="image/*">
+                            <button type="button" class="btn btn-primary mt-2" id="pphoto">Prendre une
+                                photo</button>
+                        </div>
+                        <div id="imagePreview" class="mt-3"></div>
+                        <button type="submit" class="btn btn-primary">Ajouter le livre</button>
+                    </form>
+                </div>
+            </div>
+            <!-- form End -->
+
+            <%- include('footer') %>
+
+                <script>
+                    document.getElementById('pphoto').addEventListener('click', function () {
+                        var options = {
+                            quality: 50,
+                            destinationType: Camera.DestinationType.FILE_URI,
+                            sourceType: Camera.PictureSourceType.CAMERA,
+                            encodingType: Camera.EncodingType.JPEG,
+                            mediaType: Camera.MediaType.PICTURE,
+                            correctOrientation: true
+                        };
+
+                        navigator.camera.getPicture(onSuccess, onFail, options);
+                    });
+
+                    function onSuccess(imageData) {
+                        const img = document.createElement('img');
+                        img.src = 'data:image/jpeg;base64,' + imageData;
+                        document.getElementsByTagName('body').appendChild(img);
+                    }
+
+                    function onFail(error) {
+                        console.error('Erreur lors de la capture de la photo :', error);
+                    }
+
+                    document.getElementById("livreForm").addEventListener("submit", function (event) {
+                        event.preventDefault();
+
+                        var titre = document.getElementById("titre").value;
+                        var auteur = document.getElementById("auteur").value;
+                        var editeur = document.getElementById("editeur").value;
+                        var proposePar = document.getElementById("propose_par").value;
+                        var description = document.getElementById("description").value;
+                        var illustration = document.getElementById("illustration").value;
+
+                        var nouveauLivre = {
+                            titre: titre,
+                            auteur: auteur,
+                            editeur: editeur,
+                            proposePar: proposePar,
+                            description: description,
+                            illustration: illustration
+                        };
+
+                        if (typeof (Storage) !== "undefined") {
+                            var livres = JSON.parse(localStorage.getItem("livres")) || [];
+
+                            livres.push(nouveauLivre);
+
+                            localStorage.setItem("livres", JSON.stringify(livres));
+
+                            document.getElementById("titre").value = "";
+                            document.getElementById("auteur").value = "";
+                            document.getElementById("editeur").value = "";
+                            document.getElementById("propose_par").value = "";
+                            document.getElementById("description").value = "";
+                            document.getElementById("illustration").value = "";
+
+                            alert("Le livre a été ajouté avec succès !");
+                        } else {
+                            alert("Désolé, votre navigateur ne prend pas en charge la sauvegarde locale.");
+                        }
+                    });
+                </script>
+
+                <script>
+                    const http = require('http');
+                    const fs = require('fs');
+
+                    const server = http.createServer((req, res) => {
+                        if (req.method === 'POST' && req.url === '/books') {
+                            let body = '';
+
+                            req.on('data', chunk => {
+                                body += chunk.toString();
+                            });
+
+                            req.on('end', () => {
+                                const newBook = JSON.parse(body);
+
+                                console.log('Received book data:', newBook);
+
+                                fs.readFile('form.html', (err, data) => {
+                                    if (err) {
+                                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                                        res.end('Internal Server Error');
+                                    } else {
+                                        const html = data.toString().replace('<!-- books -->', `
+                                <div class="mt-3">
+                                    <h2>Book Information</h2>
+                                    <p><strong>Title:</strong> ${newBook.titre}</p>
+                                    <p><strong>Auteur:</strong> ${newBook.auteur}</p>
+                                    <p><strong>Éditeur:</strong> ${newBook.editeur}</p>
+                                    <p><strong>Proposé par:</strong> ${newBook.proposePar}</p>
+                                    <p><strong>Description:</strong> ${newBook.description}</p>
+                                </div>
+                                `);
+
+                                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                                        res.end(html);
+                                    }
+                                });
+                            });
+                        } else {
+                            fs.readFile('form.html', (err, data) => {
+                                if (err) {
+                                    res.writeHead(500, { 'Content-Type': 'text/plain' });
+                                    res.end('Internal Server Error');
+                                } else {
+                                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                                    res.end(data);
+                                }
+                            });
+                        }
+                    });
+
+                    const PORT = process.env.PORT || 3000;
+                    server.listen(PORT, () => {
+                        console.log(`Server running on port ${PORT}`);
+                    });
+
+                </script>
+    </body>
+
+
+</html>

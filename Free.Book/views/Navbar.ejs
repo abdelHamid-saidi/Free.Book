@@ -1,0 +1,38 @@
+<div id="spinner"
+    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+</div>
+<div class="container-fluid bg-white sticky-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light p-lg-0">
+            <a href="/" class="navbar-brand">
+                <h1 class="text-primary">Free<span class="text-dark">.</span>Book</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto">
+                    <a href="/" class="nav-item nav-link">Accueil</a>
+                    <a href="/Auteurs" class="nav-item nav-link">Auteurs</a>
+                    <a href="/livre" class="nav-item nav-link">Livres</a>
+                    <a href="/Utilisateurs" class="nav-item nav-link">Utilisateurs</a>
+                    <div class="nav-item dropdown">
+                        <a href="/" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Mon
+                            compte</a>
+                        <div class="dropdown-menu bg-light mt-2">
+                            <a href="/form" class="dropdown-item">Add A Book</a>
+                            <a href="/" class="dropdown-item">Parametres</a>
+                            <a href="/" class="dropdown-item">Se déconnecté</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form">
+                    <input type="text" class="form-control form-input" placeholder="Search ">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

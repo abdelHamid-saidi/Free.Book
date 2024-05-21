@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('head') %>
+
+    <body>
+        <%- include('navbar') %>
+
+            <!-- header Start -->
+            <header class="container-fluid position-relative px-0 mb-5">
+                <img class="w-100" src="img/livre.jpg" alt="Image">
+                <div class="position-absolute start-50 translate-middle text-center text-white" style="top: 40%;">
+                    <p class="fs-4">Welcome to <strong>Free Book Exchange</strong></p>
+                    <h6 class="display-1 mb-4">Read for free and give away old books</h6>
+                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">Explore More</a>
+                </div>
+            </header>
+            <!-- header End -->
+
+            <!-- Livres Start -->
+            <div class="container-xxl pt-5">
+                <div class="container">
+                    <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
+                        style="max-width: 500px;">
+                        <p class="fs-5 fw-medium text-primary">Nos Livres</p>
+                        <h1 class="display-5 mb-5">les derniers rajoutés</h1>
+                    </div>
+                    <div class="row" id="rajoutes">
+                    </div>
+                    <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
+                        style="max-width: 500px;">
+                        <h1 class="display-5 mb-5">les derniers échangés</h1>
+                    </div>
+                    <div class="row " id="echanges">
+                    </div>
+                </div>
+            </div>
+            <!-- Livres End -->
+
+            <%- include('footer') %>
+                <script src="js/index.js"></script>
+
+    </body>
+
+
+</html>
