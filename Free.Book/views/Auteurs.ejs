@@ -1,84 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
-<%- include('head') %>
+    <%- include('head') %>
 
-    <body>
-        <%- include('navbar') %>
+        <body>
+            <%- include('navbar') %>
 
-            <!-- Header Start -->
-            <header class="container-fluid page-header py-5 mb-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="container text-center py-5">
-                    <h1 class="display-2 text-white mb-4 animated slideInDown">Auteurs</h1>
-                    <nav aria-label="breadcrumb animated slideInDown">
-                        <ol class="breadcrumb justify-content-center mb-0">
-                            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
-                            <li class="breadcrumb-item text-primary" aria-current="page">Auteurs</li>
-                        </ol>
-                    </nav>
-                </div>
-            </header>
-            <!-- Header End -->
-
-            <!-- auteurs Start -->
-            <div class="container-xxl py-5">
-                <div class="container">
-                    <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                        <p class="fs-5 fw-medium text-primary">Nos auteurs</p>
-                        <h1 class="display-5 mb-5">Notre liste d'auteurs</h1>
-                    </div>
-                    <div class="row g-4" id="auteurs">
-
-                    </div>
-                </div>
-            </div>
-            <!-- auteurs End -->
-
-
-            <%- include('footer') %>
-                <script>
-                    function generateTeamMember(index) {
-                        var name = "Nom de membre (" + (index + 1) + ")";
-
-                        var teamMember = document.createElement('div');
-                        teamMember.className = "col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 wow fadeInUp";
-                        teamMember.setAttribute("data-wow-delay", "0.1s");
-
-                        teamMember.innerHTML = `
-                                <div class="team-item rounded overflow-hidden pb-4">
-                                <img class="img-fluid mb-4" src="./public/img/team-2.jpg" alt="">
-                                <h4>${name}</h4>
-                                <p class="text-primary m-0">Algerie</p>
-                                <p class="text-primary m-0">30/01/2004 - (-)</p>
-                                <br>
-                                <h6>liste de livre</h6>
-                                <a href="livre.html" class="text-primary m-0">livre 1</a>
-                                <br>
-                                <a href="livre.html" class="text-primary m-0">livre 2</a>
-                                <br>
-                                <a href="livre.html" class="text-primary m-0">livre 3</a>
-                                <br>
-                                <a href="livre.html" class="text-primary m-0">livre 4</a>
-                                <ul class="team-social">
-                                    <li><a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a></li>
-                                    <li><a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a></li>
-                                    <li><a class="btn btn-square" href=""><i class="fab fa-linkedin-in"></i></a></li>
-                                </ul>
+                <!-- Hero Header Start -->
+                <header class="authors-hero py-5 mb-5">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 mx-auto text-center">
+                                <div class="hero-content wow fadeInUp" data-wow-delay="0.1s">
+                                    <nav aria-label="breadcrumb" class="mb-4">
+                                        <ol class="breadcrumb justify-content-center text-white">
+                                            <li class="breadcrumb-item"><a href="/" class="text-white">Accueil</a></li>
+                                            <li class="breadcrumb-item text-white active" aria-current="page">Auteurs
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                    <h1 class="hero-title mb-4">Découvrez nos Auteurs</h1>
+                                    <p class="hero-description mb-5">Explorez la collection d'auteurs talentueux qui
+                                        partagent leurs œuvres sur notre plateforme d'échange de livres.</p>
+                                </div>
                             </div>
-                        `;
+                        </div>
+                    </div>
+                </header>
+                <!-- Hero Header End -->
 
-                        return teamMember;
-                    }
+                <!-- Authors Section Start -->
+                <section class="authors-section py-5">
+                    <div class="container">
+                        <!-- Section Header -->
+                        <div class="section-header text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="section-subtitle text-primary fw-medium mb-2">Notre Collection</p>
+                            <h2 class="section-title mb-4">Auteurs Talentueux</h2>
+                            <p class="section-description">Découvrez les écrivains passionnés qui enrichissent notre
+                                bibliothèque communautaire</p>
+                        </div>
 
-                    var parentElement = document.querySelector('#auteurs');
+                        <!-- Search and Filter Bar -->
+                        <div class="search-filter-bar mb-5 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="search-filter-wrapper">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control search-author-input"
+                                                placeholder="Rechercher un auteur...">
+                                            <button class="btn btn-primary search-author-btn" type="button">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    for (var i = 0; i < 7; i++) {
-                        var teamMember = generateTeamMember(i);
-                        parentElement.appendChild(teamMember);
-                    }
+                        <!-- Authors Grid -->
+                        <div class="row g-4" id="auteurs">
+                            <!-- Authors will be loaded here by JavaScript -->
+                        </div>
 
-                </script>
-    </body>
+                        <!-- Load More Button -->
+                        <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.3s">
+                            <button class="btn btn-outline-primary btn-lg rounded-pill load-more-btn">
+                                <i class="fas fa-plus me-2"></i>Charger plus d'auteurs
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <!-- Authors Section End -->
+
+                <!-- Featured Authors Section -->
+                <section class="featured-authors-section py-5 bg-light">
+                    <div class="container">
+                        <div class="section-header text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="section-subtitle text-primary fw-medium mb-2">Auteurs Vedettes</p>
+                            <h2 class="section-title mb-4">Les Plus Populaires</h2>
+                            <p class="section-description">Les auteurs les plus appréciés par notre communauté</p>
+                        </div>
+
+                        <div class="row g-4" id="featured-authors">
+                            <!-- Featured authors will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+                <!-- Featured Authors Section End -->
+
+                <!-- Call to Action -->
+                <section class="cta-authors-section py-5 bg-primary text-white">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 text-center text-lg-start">
+                                <h3 class="cta-title mb-3">Vous êtes un auteur ?</h3>
+                                <p class="cta-description mb-0">Rejoignez notre communauté et partagez vos œuvres avec
+                                    des lecteurs passionnés.</p>
+                            </div>
+                            <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0">
+                                <a href="/form" class="btn btn-light btn-lg rounded-pill">
+                                    <i class="fas fa-plus me-2"></i>Devenir Auteur
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Call to Action End -->
+
+                <%- include('footer') %>
+
+                    <script src="js/authors.js"></script>
+        </body>
 
 </html>

@@ -17,3 +17,56 @@
 
     <link href="css/style.css" rel="stylesheet">
 </head>
+
+<!-- Spinner Start -->
+<div id="spinner" class="show">
+    <div class="spinner-container">
+        <div class="spinner-content">
+            <div class="spinner-animation">
+                <div class="spinner-circle"></div>
+                <div class="spinner-circle"></div>
+                <div class="spinner-circle"></div>
+            </div>
+            <p class="spinner-text">Chargement en cours...</p>
+        </div>
+    </div>
+</div>
+<!-- Spinner End -->
+
+<script>
+    // Masquer le spinner après 2 secondes
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+            const spinner = document.getElementById('spinner');
+            if (spinner) {
+                spinner.classList.remove('show');
+            }
+        }, 2000);
+    });
+
+    // Masquer aussi au chargement de la fenêtre (après 2 secondes)
+    window.addEventListener('load', function () {
+        setTimeout(() => {
+            const spinner = document.getElementById('spinner');
+            if (spinner) {
+                spinner.classList.remove('show');
+            }
+        }, 2000);
+    });
+
+    // Masquer après 2 secondes si le DOM est déjà chargé
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideSpinnerAfterDelay);
+    } else {
+        hideSpinnerAfterDelay();
+    }
+
+    function hideSpinnerAfterDelay() {
+        setTimeout(() => {
+            const spinner = document.getElementById('spinner');
+            if (spinner) {
+                spinner.classList.remove('show');
+            }
+        }, 2000);
+    }
+</script>

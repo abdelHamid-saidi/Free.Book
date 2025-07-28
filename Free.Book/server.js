@@ -1,17 +1,55 @@
 const path = require('path');
 const express = require('express');
-const sequelize = require('./config/database.config');
+const fs = require('fs');
 const app = express();
-const Book = require('./models/book');
-const authorRoutes = require('./routes/author.routes');
-const bookRoutes = require('./routes/book.routes');
+
+// Stockage simple en JSON
+const dataFile = './data/books.json';
+
+// Créer le fichier de données s'il n'existe pas
+if (!fs.existsSync('./data')) {
+    fs.mkdirSync('./data');
+}
+if (!fs.existsSync(dataFile)) {
+    fs.writeFileSync(dataFile, JSON.stringify([], null, 2));
+}
+
+// Fonctions pour gérer les livres
+function getBooks() {
+    try {
+        const data = fs.readFileSync(dataFile, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Erreur lors de la lecture des livres:', error);
+        return [];
+    }
+}
+
+function saveBooks(books) {
+    try {
+        fs.writeFileSync(dataFile, JSON.stringify(books, null, 2));
+        return true;
+    } catch (error) {
+        console.error('Erreur lors de la sauvegarde des livres:', error);
+        return false;
+    }
+}
+
+function addBook(bookData) {
+    const books = getBooks();
+    const newBook = {
+        id: Date.now().toString(),
+        ...bookData,
+        createdAt: new Date().toISOString()
+    };
+    books.push(newBook);
+    return saveBooks(books) ? newBook : null;
+}
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 const PORT = process.env.PORT || 3000;
-
-app.use('/api', authorRoutes);
-app.use('/api', bookRoutes);
 
 app.use(express.static(path.join(__dirname, "views")));
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,7 +74,7 @@ app.get('/form', (req, res) => {
 
 app.post('/form', async (req, res) => {
     try {
-        const book = await Book.create({
+        const book = addBook({
             titre: req.body.titre,
             auteur: req.body.auteur,
             editeur: req.body.editeur,
@@ -46,7 +84,6 @@ app.post('/form', async (req, res) => {
 
         if (book) {
             res.render('livre');
-            // res.send('l\'ajout de l\'élément à la base de données avec succes.');
         } else {
             res.status(500).send('Une erreur s\'est produite lors de l\'ajout de l\'élément à la base de données.');
         }
@@ -56,22 +93,38 @@ app.post('/form', async (req, res) => {
     }
 });
 
-
-
-async function startServer() {
+// API Routes
+app.get('/api/books', (req, res) => {
     try {
-        await sequelize.authenticate();
-        console.log('Connexion à la base de données réussie.');
-
-        await sequelize.sync({ force: false });
-        console.log('Modèles synchronisés avec la base de données.');
-
-        app.listen(PORT, () => {
-            console.log(`Le serveur Express écoute sur le port ${PORT}.`);
-        });
+        const books = getBooks();
+        res.status(200).json(books);
     } catch (error) {
-        console.error('Impossible de démarrer le serveur:', error);
+        console.error('Erreur lors de la récupération des livres:', error);
+        res.status(500).json({
+            message: 'Une erreur s\'est produite lors de la récupération des livres.'
+        });
     }
-}
+});
 
-startServer();
+app.post('/api/book', (req, res) => {
+    try {
+        const book = addBook(req.body);
+        if (book) {
+            res.status(201).json(book);
+        } else {
+            res.status(500).json({
+                message: 'Une erreur s\'est produite lors de l\'ajout du livre.'
+            });
+        }
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout du livre:', error);
+        res.status(500).json({
+            message: 'Une erreur s\'est produite lors de l\'ajout du livre.'
+        });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Le serveur Express écoute sur le port ${PORT}.`);
+    console.log(`Accédez à l'application sur: http://localhost:${PORT}`);
+});

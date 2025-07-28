@@ -1,27 +1,47 @@
-(function ($) {
-    "use strict";
+// Main JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser WOW.js pour les animations
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
+});
 
+// Fonction pour masquer le spinner
+function hideSpinner() {
+    const spinner = document.getElementById('spinner');
+    if (spinner) {
+        // Ajouter une classe pour l'animation de sortie
+        spinner.classList.add('hidden');
+        
+        // Supprimer complètement le spinner après l'animation
+        setTimeout(() => {
+            spinner.style.display = 'none';
+        }, 500);
+    }
+}
 
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
-    };
-    spinner();
+// Fonction pour afficher le spinner (si nécessaire)
+function showSpinner() {
+    const spinner = document.getElementById('spinner');
+    if (spinner) {
+        spinner.style.display = 'flex';
+        spinner.classList.remove('hidden');
+    }
+}
 
+// Fonction pour masquer le spinner (alternative pour compatibilité)
+function hideSpinnerLegacy() {
+    const spinner = document.getElementById('spinner');
+    if (spinner) {
+        spinner.classList.remove('show');
+        setTimeout(() => {
+            spinner.style.display = 'none';
+        }, 300);
+    }
+}
 
-    new WOW().init();
-
-
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.sticky-top').addClass('shadow-sm').css('top', '0px');
-        } else {
-            $('.sticky-top').removeClass('shadow-sm').css('top', '-100px');
-        }
-    });
-
-})(jQuery);
+// Exposer les fonctions globalement
+window.hideSpinner = hideSpinner;
+window.showSpinner = showSpinner;
+window.hideSpinnerLegacy = hideSpinnerLegacy;
 

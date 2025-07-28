@@ -2,8 +2,9 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize({
-    dialect: 'sqlite', // par exemple, utilisez le dialecte approprié pour votre base de données
-    storage: './data/database.sqlite' // spécifiez le chemin de stockage de votre base de données SQLite
+    dialect: 'sqlite',
+    storage: ':memory:', // Utilise une base de données en mémoire pour le développement
+    logging: false // Désactive les logs SQL pour plus de clarté
 });
 
 module.exports = sequelize;

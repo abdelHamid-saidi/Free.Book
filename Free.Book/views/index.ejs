@@ -1,46 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
-<%- include('head') %>
+    <%- include('head') %>
 
-    <body>
-        <%- include('navbar') %>
+        <body>
+            <%- include('navbar') %>
 
-            <!-- header Start -->
-            <header class="container-fluid position-relative px-0 mb-5">
-                <img class="w-100" src="img/livre.jpg" alt="Image">
-                <div class="position-absolute start-50 translate-middle text-center text-white" style="top: 40%;">
-                    <p class="fs-4">Welcome to <strong>Free Book Exchange</strong></p>
-                    <h6 class="display-1 mb-4">Read for free and give away old books</h6>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">Explore More</a>
-                </div>
-            </header>
-            <!-- header End -->
-
-            <!-- Livres Start -->
-            <div class="container-xxl pt-5">
-                <div class="container">
-                    <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
-                        style="max-width: 500px;">
-                        <p class="fs-5 fw-medium text-primary">Nos Livres</p>
-                        <h1 class="display-5 mb-5">les derniers rajoutés</h1>
+                <!-- Hero Section Start -->
+                <header class="hero-section position-relative overflow-hidden">
+                    <div class="hero-background">
+                        <img class="w-100 h-100" src="img/livre.jpg" alt="Bibliothèque">
+                        <div class="hero-overlay"></div>
                     </div>
-                    <div class="row" id="rajoutes">
+                    <div class="container position-relative">
+                        <div class="row min-vh-100 align-items-center">
+                            <div class="col-lg-8 col-xl-7 text-center text-lg-start">
+                                <div class="hero-content wow fadeInUp" data-wow-delay="0.1s">
+                                    <p class="hero-subtitle mb-3">Bienvenue sur</p>
+                                    <h1 class="hero-title mb-4">
+                                        <span class="text-primary">Free</span><span class="text-white">Book</span>
+                                        <span class="d-block">Exchange</span>
+                                    </h1>
+                                    <p class="hero-description mb-5">Lisez gratuitement et partagez vos anciens livres
+                                        avec la communauté. Découvrez des milliers de livres disponibles pour l'échange.
+                                    </p>
+                                    <div class="hero-buttons">
+                                        <a href="#books-section" class="btn btn-primary btn-lg rounded-pill me-3 mb-3">
+                                            <i class="fas fa-book-open me-2"></i>Explorer les livres
+                                        </a>
+                                        <a href="/form" class="btn btn-outline-light btn-lg rounded-pill mb-3">
+                                            <i class="fas fa-plus me-2"></i>Ajouter un livre
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center text-md-start pb-5 pb-md-0 wow fadeInUp" data-wow-delay="0.1s"
-                        style="max-width: 500px;">
-                        <h1 class="display-5 mb-5">les derniers échangés</h1>
+                    <div class="hero-scroll-indicator">
+                        <a href="#books-section" class="scroll-down">
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
                     </div>
-                    <div class="row " id="echanges">
+                </header>
+                <!-- Hero Section End -->
+
+                <!-- Stats Section Start -->
+                <section class="stats-section py-5">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="stat-item text-center wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-book-open fa-3x text-primary"></i>
+                                    </div>
+                                    <h3 class="stat-number" data-count="1247">0</h3>
+                                    <p class="stat-label">Livres disponibles</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="stat-item text-center wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-users fa-3x text-primary"></i>
+                                    </div>
+                                    <h3 class="stat-number" data-count="3456">0</h3>
+                                    <p class="stat-label">Membres actifs</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="stat-item text-center wow fadeInUp" data-wow-delay="0.3s">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-exchange-alt fa-3x text-primary"></i>
+                                    </div>
+                                    <h3 class="stat-number" data-count="2156">0</h3>
+                                    <p class="stat-label">Échanges réussis</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="stat-item text-center wow fadeInUp" data-wow-delay="0.4s">
+                                    <div class="stat-icon mb-3">
+                                        <i class="fas fa-star fa-3x text-primary"></i>
+                                    </div>
+                                    <h3 class="stat-number" data-count="4.7">0</h3>
+                                    <p class="stat-label">Note moyenne</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Livres End -->
+                </section>
+                <!-- Stats Section End -->
 
-            <%- include('footer') %>
-                <script src="js/index.js"></script>
+                <!-- Books Section Start -->
+                <section id="books-section" class="books-section py-5">
+                    <div class="container">
+                        <div class="section-header text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="section-subtitle text-primary fw-medium mb-2">Derniers ajouts</p>
+                            <h2 class="section-title mb-4">Livres récemment ajoutés</h2>
+                            <p class="section-description">Découvrez les nouveaux livres partagés par notre communauté
+                            </p>
+                        </div>
+                        <div class="row g-4" id="rajoutes">
+                            <!-- Books will be loaded here by JavaScript -->
+                        </div>
+                        <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.3s">
+                            <a href="/livre" class="btn btn-outline-primary btn-lg rounded-pill">
+                                <i class="fas fa-book me-2"></i>Voir tous les livres
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <!-- Books Section End -->
 
-    </body>
+                <!-- Exchanged Books Section Start -->
+                <section class="exchanged-books-section py-5">
+                    <div class="container">
+                        <div class="section-header text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="section-subtitle text-primary fw-medium mb-2">Échanges récents</p>
+                            <h2 class="section-title mb-4">Livres récemment échangés</h2>
+                            <p class="section-description">Les livres qui ont trouvé de nouveaux lecteurs</p>
+                        </div>
+                        <div class="row g-4" id="echanges">
+                            <!-- Exchanged books will be loaded here by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+                <!-- Exchanged Books Section End -->
 
+                <!-- Features Section Start -->
+                <section class="features-section py-5">
+                    <div class="container">
+                        <div class="section-header text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="section-subtitle text-primary fw-medium mb-2">Pourquoi nous choisir</p>
+                            <h2 class="section-title mb-4">Les avantages de FreeBook</h2>
+                            <p class="section-description">Une plateforme communautaire pour partager la passion de la
+                                lecture</p>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="feature-card text-center wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="feature-icon mb-4">
+                                        <i class="fas fa-gift fa-3x text-primary"></i>
+                                    </div>
+                                    <h4 class="feature-title">Gratuit et accessible</h4>
+                                    <p class="feature-description">Accédez à des milliers de livres gratuitement.
+                                        Partagez vos lectures sans coût.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="feature-card text-center wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="feature-icon mb-4">
+                                        <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                                    </div>
+                                    <h4 class="feature-title">Communauté sécurisée</h4>
+                                    <p class="feature-description">Échangez en toute confiance avec des lecteurs
+                                        vérifiés de votre région.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="feature-card text-center wow fadeInUp" data-wow-delay="0.3s">
+                                    <div class="feature-icon mb-4">
+                                        <i class="fas fa-leaf fa-3x text-primary"></i>
+                                    </div>
+                                    <h4 class="feature-title">Écologique</h4>
+                                    <p class="feature-description">Réduisez votre impact environnemental en réutilisant
+                                        les livres existants.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Features Section End -->
+
+                <!-- CTA Section Start -->
+                <section class="cta-section py-5 text-white">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 text-center text-lg-start">
+                                <h3 class="cta-title mb-3">Prêt à rejoindre notre communauté ?</h3>
+                                <p class="cta-description mb-0">Inscrivez-vous gratuitement et commencez à partager vos
+                                    livres dès aujourd'hui.</p>
+                            </div>
+                            <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0">
+                                <a href="/form" class="btn btn-light btn-lg rounded-pill">
+                                    <i class="fas fa-user-plus me-2"></i>Rejoindre maintenant
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- CTA Section End -->
+
+                <%- include('footer') %>
+
+                    <script src="js/index.js"></script>
+        </body>
 
 </html>
