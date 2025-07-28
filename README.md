@@ -7,6 +7,8 @@
 
 > **Free.Book** est une plateforme communautaire moderne de partage et d'échange de livres gratuits. Développée avec les technologies web les plus récentes, elle offre une expérience utilisateur exceptionnelle pour les passionnés de lecture.
 
+![Free.Book Design](design/01.png)
+
 ## Technologies Utilisées
 
 ### Backend
