@@ -3,7 +3,6 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green.svg)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-blue.svg)](https://expressjs.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-purple.svg)](https://getbootstrap.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Free.Book** est une plateforme communautaire moderne de partage et d'échange de livres gratuits. Développée avec les technologies web les plus récentes, elle offre une expérience utilisateur exceptionnelle pour les passionnés de lecture.
 
